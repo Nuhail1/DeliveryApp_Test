@@ -12,7 +12,7 @@ class OrderProvider extends ChangeNotifier {
     VehicleType('Medium Van', 180),
     VehicleType('Lutton Van', 200)
   ];
-  VehicleType? selectedVehicleType = VehicleType('Car', 100);
+  VehicleType? selectedVehicleType;
   double totalPriceExcVat = 0.0, totalPriceIncVat = 0.0;
 
   String? postcodeValidator(String? postcode) {
@@ -29,7 +29,6 @@ class OrderProvider extends ChangeNotifier {
   changeVehicleType(VehicleType? vehicleType) {
     selectedVehicleType = vehicleType;
     calculatePrice();
-    notifyListeners();
   }
 
   calculatePrice() async {
