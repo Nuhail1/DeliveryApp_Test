@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:deliveryapp/src/providers/loginProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +16,8 @@ class LoginScreen extends StatelessWidget {
     // OR Consumer<LoginProvider>(builder: (context, provider, pChild) {
     return Scaffold(
       appBar: AppBar(
+        titleTextStyle: const TextStyle(fontSize: 24),
+        elevation: 0,
         title: const Center(child: Text('Welcome')),
       ),
       body: Container(
@@ -26,34 +27,37 @@ class LoginScreen extends StatelessWidget {
           key: formKey,
           child: Column(
             children: [
-              Container(
-                margin: const EdgeInsets.all(24),
-                child: Text('Login',
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 32,
-                        fontWeight: FontWeight.w500)),
-              ),
+              Text('Login',
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 32,
+                      fontWeight: FontWeight.w500)),
+              AppConstants.loginVerSpace,
+              AppConstants.defSpace,
               TextFormField(
                 controller: lProvider.emailController,
                 decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppConstants.whiteColor,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12)),
                     labelText: 'Email Address',
                     hintText: 'Enter your email'),
                 validator: lProvider.emailValidator,
               ),
-              AppConstants.defSpace,
+              AppConstants.secSpace,
               TextFormField(
                 controller: lProvider.passwordController,
                 obscureText: lProvider.secure,
                 decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppConstants.whiteColor,
                     suffixIcon: IconButton(
                         onPressed: () => lProvider.toogleSecure(),
                         icon: Icon(
                           lProvider.secure
-                              ? Icons.remove_red_eye_rounded
-                              : Icons.remove_red_eye_outlined,
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                           color: Theme.of(context).primaryColor,
                         )),
                     border: OutlineInputBorder(
@@ -64,11 +68,11 @@ class LoginScreen extends StatelessWidget {
               ),
               Container(
                 alignment: AlignmentDirectional.centerEnd,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.only(top: 12, bottom: 24),
                 child: Text('Forgot Password?',
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                         color: Theme.of(context).primaryColor)),
               ),
               SizedBox(
@@ -107,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                               AlwaysStoppedAnimation<Color>(Colors.white)),
                 ),
               ),
-              AppConstants.defSpace,
+              AppConstants.loginVerSpace,
               RichText(
                 text: TextSpan(
                     text: 'New here? ',
@@ -124,10 +128,26 @@ class LoginScreen extends StatelessWidget {
                       )
                     ]),
               ),
+              AppConstants.loginVerSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.arrow_back),
+                  Text('Back to user type screen'),
+                ],
+              ),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: const SafeArea(
+          child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          'Version : 3.9.3',
+          textAlign: TextAlign.center,
+        ),
+      )),
     );
   }
 }
